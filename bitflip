@@ -1,0 +1,56 @@
+/*
+ *  BitFlip
+ *
+ *  Given an array of binary values (0 and 1) and N number of flips that
+ *  can convert a 0 to a 1, determine the maximum number of consecutive 1's
+ *  that can be made.
+ *
+ *  Input: arr {Array}
+ *  Input: n {Integer}
+ *  Output: Integer
+ *                               👇                         
+ *  Example: bitFlip([0,1,1,1,0,1,0,1,0,0], 2)
+ *                      👆🏼
+ *                   👇
+ *  Example: bitFlip([0], 1)
+ *                    👆🏼                     
+ *  Result: 7
+ */
+
+// Time Complexity:
+// Auxiliary Space Complexity:
+function bitFlip (arr, n) {
+  // initialize variables
+  let result = 0;
+  let left = 0;
+  let counter = 0;
+  // start both pointers at 0
+  // loop through arr with right pointer
+  for (let i = 0; i < arr.length; i++) {
+    // if the value is a 0, increment 0 counter
+    if (arr[i] === 0) {
+      counter++
+    }
+    if (counter === n) {
+      result = Math.max(result, i + 1 - left);
+    }
+    // while the 0 counter is greater than n
+    while (counter > n) {
+      // get the number of elements from left pointer to right pointer
+      // and get the max of that and what's stored in the current result
+      result = Math.max(result, i - left);
+      console.log(result)
+      // if the left pointer is on a 0 decrement 0 counter
+      if (arr[left] === 0) {
+        counter--
+      }
+       // move the left pointer through arr
+      left++;
+    }
+  }
+  
+  return result;
+}
+
+bitFlip([0,1,1,1,0,1,0,1,0,0], 2)
+// bitFlip([0], 1)

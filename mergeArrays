@@ -1,0 +1,31 @@
+function mergeArrays(a, b) {
+    let aIdx = 0;
+    let bIdx = 0;
+    let result = []
+    while (aIdx <= a.length - 1 && bIdx <= b.length - 1) {
+        if (a[aIdx] && a[aIdx] <= b[bIdx]) {
+            result.push(a[aIdx])
+            aIdx++;
+        } else {
+            result.push(b[bIdx])
+            bIdx++;
+        }
+    }
+  
+    if (aIdx < a.length) {
+      for (let i = aIdx; i < a.length; i++) {
+        result.push(a[aIdx])
+      }
+    }
+  
+  if (bIdx < b.length) {
+      for (let i = bIdx; i < b.length; i++) {
+        result.push(b[bIdx])
+      }
+    }
+
+    return result;
+
+}
+mergeArrays([1,2,6],[3,4,5,8])
+

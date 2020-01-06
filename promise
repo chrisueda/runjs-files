@@ -1,0 +1,51 @@
+/*
+const promise = new PromiseLite((resolve) => {
+  setTimeout(() => resolve(5), 1000)
+});
+
+console.log('before');
+
+promise
+  .then(val => val + 1)
+  .then(val => {
+    console.log(val); 
+    return val;
+  })
+  .then(val => console.log('foo', val));
+
+console.log('after');
+*/
+
+class PromiseLite {
+  constructor(fn) {
+    this.fn = fn;
+    this.queue = [];
+    fn(this.resolve.bind(this));
+  }
+  
+  then(fn) {
+    this.queue.push(fn);
+  }
+  
+  resolve() {
+    let fn = this.queue.shift();
+    fn();
+  }
+  
+}
+  
+const promise = new PromiseLite((fn) => {
+  setTimeout(() => {
+    fn();
+  }, 1000);
+});
+
+promise.then(() => console.log('next'));
+promise.then(() => console.log('finally'))
+promise.then(() => console.log('finally1'))
+promise.then(() => console.log('finally2'))
+promise.then(() => console.log('finally3'));
+console.log('after');
+
+console.log(promise.resolve())
+console.log(promise.resolve())

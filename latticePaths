@@ -1,0 +1,47 @@
+// function latticePaths(m, n) {
+//   let cache = {};
+
+//   function move(col, row) {
+//     let cacheKey = col + '_' + row;
+//     if (cache[cacheKey]) {
+//       return cache[cacheKey]
+//     }
+    
+//     if (col > m || row > n) {
+//       cache[cacheKey] = 0;
+//       return cache[cacheKey];
+//     }
+//     if (col === m && row === n) {
+//       cache[cacheKey] = 1;
+//       return cache[cacheKey];
+//     }
+    
+//     let nextCol = col + 1;
+//     let nextRow = row + 1;
+//     cache[nextCol + '_' + row] = move(col + 1, row);
+//     cache[col + '_' + nextRow] = move(col, row + 1);
+//     return cache[nextCol + '_' + row] + cache[col + '_' + nextRow]
+//   }
+
+//   return move(0, 0);
+// }
+
+function latticePaths(m,n) {
+  let table = new Array(m + 1).fill(0);
+  table[0] = 1;
+  
+  for (let col = 1; col <= n; col++) {
+    for (let i = col; i < table.length; i++ ) {
+      let above = table[i];
+      console.log('above', above)
+      let left = table[i - 1] ? table[i - 1] : 1;
+      console.log(left)
+      table[i] = above + left;
+      console.log(col, table)
+    }
+    
+  }
+  
+}
+
+latticePaths(3,2)
